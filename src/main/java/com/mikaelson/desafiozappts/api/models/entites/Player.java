@@ -25,9 +25,11 @@ public class Player {
     private String name;
 
     @OneToMany(mappedBy = "listCardsOwner")
+    @ToString.Exclude
     private List<CardList> cardLists;
 
     @OneToMany(mappedBy = "cardOwner")
+    @ToString.Exclude
     private List<Card> cards;
 
     @Override
