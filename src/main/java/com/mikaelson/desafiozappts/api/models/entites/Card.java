@@ -52,7 +52,9 @@ public class Card {
     }
 
     public void setLanguage(Language code){
-        this.language = code.getCode();
+        if (code != null){
+            this.language = code.getCode();
+        }
     }
 
     public String getLanguageDescription(){
