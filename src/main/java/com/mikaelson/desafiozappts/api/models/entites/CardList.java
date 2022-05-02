@@ -28,6 +28,7 @@ public class CardList {
     private Integer cardsAmount;
 
     @OneToMany(mappedBy = "cardList")
+    @ToString.Exclude
     private List<Card> cards;
 
     @ManyToOne
