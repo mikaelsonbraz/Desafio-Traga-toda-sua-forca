@@ -2,7 +2,9 @@ package com.mikaelson.desafiozappts.cardList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelson.desafiozappts.api.models.dtos.CardListDto;
+import com.mikaelson.desafiozappts.api.models.dtos.PlayerDto;
 import com.mikaelson.desafiozappts.api.models.entites.CardList;
+import com.mikaelson.desafiozappts.api.models.entites.Player;
 import com.mikaelson.desafiozappts.api.resources.CardListController;
 import com.mikaelson.desafiozappts.api.services.CardListService;
 import org.junit.jupiter.api.DisplayName;
@@ -39,11 +41,15 @@ public class CardListControllerTests {
     CardListService service;
 
     public CardListDto createCardListDto(){
-        return CardListDto.builder().idCardList(1).listName("Minha Lista").build();
+        return CardListDto.builder().idCardList(1).listName("Minha Lista").listCardsOwner(createPlayerDto()).build();
     }
 
     public CardList createCardList(){
         return CardList.builder().idCardList(1).listName("Minha Lista").build();
+    }
+
+    public PlayerDto createPlayerDto(){
+        return PlayerDto.builder().idPlayer(1).name("João").build();
     }
 
     @Test
@@ -108,7 +114,7 @@ public class CardListControllerTests {
     @DisplayName("Must update a cardList by id")
     public void updateCardListTest() throws Exception {
         //scenery
-        String json = new ObjectMapper().writeValueAsString(CardListDto.builder().idCardList(1).listName("Nova Lista").build());
+        String json = new ObjectMapper().writeValueAsString(CardListDto.builder().idCardList(1).listName("Nova Lista").listCardsOwner(createPlayerDto()).build());
         CardList cardList = createCardList();
         BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
         BDDMockito.given(service.update(Mockito.any(CardList.class))).willReturn(CardList.builder().idCardList(1).listName("Nova Lista").build());
