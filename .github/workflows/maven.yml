@@ -29,4 +29,4 @@ jobs:
       uses: codecov/codecov-action@v3.1.0
       with:
         token: ${{secrets.CODECOV_TOKEN}}
-        files: ./coverage.xml,./e2e-coverage.xml
+        files: C:\Users\mikae\IdeaProjects\Desafio-Traga-toda-sua-forca\target\site\jacoco\jacoco.xml
