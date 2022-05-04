@@ -26,4 +26,4 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Codecov
-        uses: codecov/codecov-action@v2.0.0
+        uses: codecov/codecov-action@v3.0.0
