@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/cardlists")
 public class CardListController {
@@ -40,6 +42,24 @@ public class CardListController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/sortby=name/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<String> readAllCardsByName(@PathVariable Integer id){
+        if(service.getById(id).isPresent()){
+            return service.getAllCardsByName(id);
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/sortby=price/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<String> readAllCardsByPrice(@PathVariable Integer id){
+        if(service.getById(id).isPresent()){
+            return service.getAllCardsByPrice(id);
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public CardListDto update(@PathVariable Integer id, CardListDto cardListDto){
@@ -51,7 +71,7 @@ public class CardListController {
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PatchMapping("/idCardList={idCardList}/idCard={idCard}")
+    @PatchMapping("/add/idCardList={idCardList}/idCard={idCard}")
     @ResponseStatus(HttpStatus.OK)
     public CardListDto updateCards(@PathVariable Integer idCardList, @PathVariable Integer idCard){
         if(service.getById(idCardList).isPresent() && cardService.getById(idCard).isPresent()){
@@ -69,5 +89,17 @@ public class CardListController {
         CardList cardList = service.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         service.delete(cardList);
+    }
+
+    @PatchMapping("/remove/idCardList={idCardList}/idCard={idCard}")
+    @ResponseStatus(HttpStatus.OK)
+    public CardListDto removeCard(@PathVariable Integer idCardList, @PathVariable Integer idCard){
+        if(service.getById(idCardList).isPresent() && cardService.getById(idCard).isPresent()){
+            CardList cardList = service.getById(idCardList).get();
+            Card card = cardService.getById(idCard).get();
+            cardList = service.removeCard(cardList, card);
+            return modelMapper.map(cardList, CardListDto.class);
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 }
