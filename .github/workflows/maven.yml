@@ -28,6 +28,5 @@ jobs:
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
         with:
-          version: "v0.1.15"
-          files: ../target/site/jacoco/jacoco.xml
+          files: target/site/jacoco/jacoco.xml
 
