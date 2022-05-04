@@ -1,7 +1,9 @@
 package com.mikaelson.desafiozappts.cardList;
 
+import com.mikaelson.desafiozappts.api.models.entites.Card;
 import com.mikaelson.desafiozappts.api.models.entites.CardList;
 import com.mikaelson.desafiozappts.api.models.repositories.CardListRepository;
+import com.mikaelson.desafiozappts.api.models.repositories.CardRepository;
 import com.mikaelson.desafiozappts.api.services.CardListService;
 import com.mikaelson.desafiozappts.api.services.implementations.CardListServiceImpl;
 import org.assertj.core.api.Assertions;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -28,16 +31,30 @@ public class CardListServiceTests {
     CardListRepository repository;
 
     @MockBean
+    CardRepository cardRepository;
+
+    @MockBean
     @Autowired
     TestEntityManager entityManager;
 
     @BeforeEach
     public void setUp(){
-        this.service = new CardListServiceImpl(repository);
+        this.service = new CardListServiceImpl(repository, cardRepository);
     }
 
     public CardList createCardList(){
         return CardList.builder().idCardList(1).listName("Minha lista").build();
+    }
+
+    public Card createCard(){
+        return Card.builder()
+                .idCard(1)
+                .cardName("Bola de Fogo")
+                .edition("Commander Legends: Batalha por Portal de Baldur")
+                .isFoil(true)
+                .language(3)
+                .price(10)
+                .build();
     }
 
     @Test
@@ -109,6 +126,37 @@ public class CardListServiceTests {
 
         //verifications
         org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.update(cardList));
+        Mockito.verify(repository, Mockito.never()).save(cardList);
+    }
+
+    @Test
+    @DisplayName("Must place a card in the cardList")
+    public void placeCardTest(){
+        //scenery
+        CardList cardList = createCardList();
+        Card card = createCard();
+        Mockito.when(repository.save(Mockito.any(CardList.class))).thenReturn(cardList);
+
+
+        //execution
+        CardList placedCard = service.placeCard(cardList, card);
+
+        //verifications
+        Assertions.assertThat(placedCard.getIdCardList()).isNotNull();
+        Assertions.assertThat(placedCard.getCards().contains(card)).isTrue();
+    }
+
+    @Test
+    @DisplayName("Must throw IllergalArgumentException when not find a card to put in tha cardList")
+    public void putInvalidCardOnCardListTest(){
+        //scenery
+        CardList cardList = createCardList();
+        Card card = new Card();
+
+        //execution
+
+        //verifications
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.placeCard(cardList, card));
         Mockito.verify(repository, Mockito.never()).save(cardList);
     }
 

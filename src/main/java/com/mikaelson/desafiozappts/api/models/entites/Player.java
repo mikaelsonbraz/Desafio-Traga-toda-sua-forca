@@ -3,6 +3,7 @@ package com.mikaelson.desafiozappts.api.models.entites;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,11 +27,11 @@ public class Player {
 
     @OneToMany(mappedBy = "listCardsOwner")
     @ToString.Exclude
-    private List<CardList> cardLists;
+    private List<CardList> cardLists = new ArrayList<>();
 
     @OneToMany(mappedBy = "cardOwner")
     @ToString.Exclude
-    private List<Card> cards;
+    private List<Card> cards = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

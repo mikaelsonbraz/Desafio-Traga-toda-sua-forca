@@ -1,6 +1,7 @@
 package com.mikaelson.desafiozappts.api.models.entites;
 
 import com.mikaelson.desafiozappts.api.models.enums.Language;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,7 +45,7 @@ public class Card {
     private CardList cardList;
 
     @ManyToOne
-    @JoinColumn(name = "id_player")
+    @JoinColumn(name = "id_player", nullable = false)
     private Player cardOwner;
 
     public Language getLanguage(){

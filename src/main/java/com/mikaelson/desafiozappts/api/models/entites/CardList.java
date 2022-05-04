@@ -3,6 +3,7 @@ package com.mikaelson.desafiozappts.api.models.entites;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +14,6 @@ import java.util.Objects;
 @Builder
 @Getter
 @Setter
-@ToString
 public class CardList {
 
     @Id
@@ -28,12 +28,21 @@ public class CardList {
     private Integer cardsAmount;
 
     @OneToMany(mappedBy = "cardList")
-    @ToString.Exclude
-    private List<Card> cards;
+    private List<Card> cards = new ArrayList<Card>();
 
     @ManyToOne
-    @JoinColumn(name = "id_player")
+    @JoinColumn(name = "id_player", nullable = false)
     private Player listCardsOwner;
+
+    @Override
+    public String toString() {
+        return "CardList{" +
+                "idCardList=" + idCardList +
+                ", listName='" + listName + '\'' +
+                ", cardsAmount=" + cardsAmount +
+                ", listCardsOwner=" + listCardsOwner +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {

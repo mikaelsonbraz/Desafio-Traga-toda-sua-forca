@@ -31,6 +31,8 @@ public class CardDto {
 
     private double price;
 
+    private PlayerDto cardOwner;
+
     public Language getLanguage(){
         if (language != null){
             return Language.toEnum(language);

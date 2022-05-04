@@ -24,6 +24,5 @@ public class CardListDto {
     @NotNull
     private String listName;
 
-    @NotNull
     private PlayerDto listCardsOwner;
 }
