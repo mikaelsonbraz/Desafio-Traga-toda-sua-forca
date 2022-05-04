@@ -3,6 +3,8 @@ package com.mikaelson.desafiozappts.api.resources;
 import com.mikaelson.desafiozappts.api.models.dtos.PlayerDto;
 import com.mikaelson.desafiozappts.api.models.entites.Player;
 import com.mikaelson.desafiozappts.api.services.PlayerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("api/players")
+@Api("Players API")
 public class PlayerController {
 
     private final PlayerService service;
@@ -22,6 +25,7 @@ public class PlayerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Create a PLayer")
     public PlayerDto create(@RequestBody PlayerDto playerDto){
         Player entity = modelMapper.map(playerDto, Player.class);
         entity = service.save(entity);
@@ -30,6 +34,7 @@ public class PlayerController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get a Player")
     public PlayerDto read(@PathVariable Integer id){
         return service.getById(id)
                 .map(player -> modelMapper.map(player, PlayerDto.class))
@@ -38,6 +43,7 @@ public class PlayerController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Update a Player")
     public PlayerDto update(@PathVariable Integer id, PlayerDto playerDto){
         return service.getById(id)
                 .map(player -> {
@@ -49,6 +55,7 @@ public class PlayerController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Delete a Player")
     public void delete(@PathVariable Integer id){
         Player player = service.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

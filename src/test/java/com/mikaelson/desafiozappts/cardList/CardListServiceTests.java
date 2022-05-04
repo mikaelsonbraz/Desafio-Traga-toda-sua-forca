@@ -118,8 +118,8 @@ public class CardListServiceTests {
 
         //verifications
         Assertions.assertThat(foundCards.size()).isEqualTo(2);
-        Assertions.assertThat(foundCards.contains("\n" + card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice())).isTrue();
-        Assertions.assertThat(foundCards.contains("\n" + card2.getCardName() + ", " + card2.getEdition() + ", " + card2.getPrice())).isTrue();
+        Assertions.assertThat(foundCards.contains(card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice())).isTrue();
+        Assertions.assertThat(foundCards.contains(card2.getCardName() + ", " + card2.getEdition() + ", " + card2.getPrice())).isTrue();
     }
 
     @Test
@@ -137,8 +137,8 @@ public class CardListServiceTests {
 
         //verifications
         Assertions.assertThat(foundCards.size()).isEqualTo(2);
-        Assertions.assertThat(foundCards.contains("\n" + card.getPrice() + ", " + card.getCardName() + ", " + card.getEdition())).isTrue();
-        Assertions.assertThat(foundCards.contains("\n" + card2.getPrice() + ", " + card2.getCardName() + ", " + card2.getEdition())).isTrue();
+        Assertions.assertThat(foundCards.contains(card.getPrice() + ", " + card.getCardName() + ", " + card.getEdition())).isTrue();
+        Assertions.assertThat(foundCards.contains(card2.getPrice() + ", " + card2.getCardName() + ", " + card2.getEdition())).isTrue();
     }
 
     @Test

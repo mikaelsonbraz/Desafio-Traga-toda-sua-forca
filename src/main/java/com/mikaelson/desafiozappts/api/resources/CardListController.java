@@ -5,6 +5,8 @@ import com.mikaelson.desafiozappts.api.models.entites.Card;
 import com.mikaelson.desafiozappts.api.models.entites.CardList;
 import com.mikaelson.desafiozappts.api.services.CardListService;
 import com.mikaelson.desafiozappts.api.services.CardService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/cardlists")
+@Api("CardLists API")
 public class CardListController {
 
     private final CardListService service;
@@ -28,6 +31,7 @@ public class CardListController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Create a CardList")
     public CardListDto create(@RequestBody CardListDto cardListDto){
         CardList entity = modelMapper.map(cardListDto, CardList.class);
         entity = service.save(entity);
@@ -36,6 +40,7 @@ public class CardListController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get a CardList")
     public CardListDto read(@PathVariable Integer id){
         return service.getById(id)
                 .map(cardList -> modelMapper.map(cardList, CardListDto.class))
@@ -44,6 +49,7 @@ public class CardListController {
 
     @GetMapping("/sortby=name/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get Cards from a CardList sorting by name")
     public List<String> readAllCardsByName(@PathVariable Integer id){
         if(service.getById(id).isPresent()){
             return service.getAllCardsByName(id);
@@ -52,6 +58,7 @@ public class CardListController {
     }
 
     @GetMapping("/sortby=price/{id}")
+    @ApiOperation("Get Cards from a CardList sorting by name")
     @ResponseStatus(HttpStatus.OK)
     public List<String> readAllCardsByPrice(@PathVariable Integer id){
         if(service.getById(id).isPresent()){
@@ -62,6 +69,7 @@ public class CardListController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Update a CardList")
     public CardListDto update(@PathVariable Integer id, CardListDto cardListDto){
         return service.getById(id)
                 .map(cardList -> {
@@ -73,6 +81,7 @@ public class CardListController {
 
     @PatchMapping("/add/idCardList={idCardList}/idCard={idCard}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Add cards on a CardList")
     public CardListDto updateCards(@PathVariable Integer idCardList, @PathVariable Integer idCard){
         if(service.getById(idCardList).isPresent() && cardService.getById(idCard).isPresent()){
             CardList cardList = service.getById(idCardList).get();
@@ -85,6 +94,7 @@ public class CardListController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Delete a CardList")
     public void delete(@PathVariable Integer id){
         CardList cardList = service.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -93,6 +103,7 @@ public class CardListController {
 
     @PatchMapping("/remove/idCardList={idCardList}/idCard={idCard}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Remove Cards from a CardList")
     public CardListDto removeCard(@PathVariable Integer idCardList, @PathVariable Integer idCard){
         if(service.getById(idCardList).isPresent() && cardService.getById(idCard).isPresent()){
             CardList cardList = service.getById(idCardList).get();

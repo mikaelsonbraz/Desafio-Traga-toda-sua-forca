@@ -3,6 +3,8 @@ package com.mikaelson.desafiozappts.api.resources;
 import com.mikaelson.desafiozappts.api.models.dtos.CardDto;
 import com.mikaelson.desafiozappts.api.models.entites.Card;
 import com.mikaelson.desafiozappts.api.services.CardService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/cards")
+@Api("Card API")
 public class CardController {
 
     private final CardService service;
@@ -22,6 +25,7 @@ public class CardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Create a Card")
     public CardDto create(@RequestBody CardDto cardDto){
         Card entity = modelMapper.map(cardDto, Card.class);
         entity = service.save(entity);
@@ -30,6 +34,7 @@ public class CardController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get a Card")
     public CardDto read(@PathVariable Integer id){
         return service.getById(id)
                 .map(card -> modelMapper.map(card, CardDto.class))
@@ -38,6 +43,7 @@ public class CardController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Update aa Card")
     public CardDto update(@PathVariable Integer id, CardDto cardDto){
         return service.getById(id)
                 .map(card -> {
@@ -53,6 +59,7 @@ public class CardController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Delete a Card")
     public void delete(@PathVariable Integer id){
         Card card = service.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
