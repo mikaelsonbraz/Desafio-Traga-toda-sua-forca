@@ -27,6 +27,4 @@ jobs:
 
       - name: Codecov
         uses: codecov/codecov-action@v3.1.0
-        with:
-          files: Desafio-Traga-toda-sua-forca/target/site/jacoco/jacoco.xml
 
