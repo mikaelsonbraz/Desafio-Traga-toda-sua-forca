@@ -2,9 +2,8 @@ package com.mikaelson.desafiozappts.cardList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelson.desafiozappts.api.models.dtos.CardListDto;
-import com.mikaelson.desafiozappts.api.models.dtos.PlayerDto;
-import com.mikaelson.desafiozappts.api.models.entites.Card;
-import com.mikaelson.desafiozappts.api.models.entites.CardList;
+import com.mikaelson.desafiozappts.api.models.entities.Card;
+import com.mikaelson.desafiozappts.api.models.entities.CardList;
 import com.mikaelson.desafiozappts.api.resources.CardListController;
 import com.mikaelson.desafiozappts.api.services.CardListService;
 import com.mikaelson.desafiozappts.api.services.CardService;
@@ -25,7 +24,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

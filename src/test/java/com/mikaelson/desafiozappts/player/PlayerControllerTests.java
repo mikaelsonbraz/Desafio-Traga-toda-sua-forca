@@ -2,7 +2,7 @@ package com.mikaelson.desafiozappts.player;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelson.desafiozappts.api.models.dtos.PlayerDto;
-import com.mikaelson.desafiozappts.api.models.entites.Player;
+import com.mikaelson.desafiozappts.api.models.entities.Player;
 import com.mikaelson.desafiozappts.api.resources.PlayerController;
 import com.mikaelson.desafiozappts.api.services.PlayerService;
 import org.junit.jupiter.api.DisplayName;

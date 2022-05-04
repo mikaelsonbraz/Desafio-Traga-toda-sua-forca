@@ -1,7 +1,7 @@
 package com.mikaelson.desafiozappts.cardList;
 
-import com.mikaelson.desafiozappts.api.models.entites.Card;
-import com.mikaelson.desafiozappts.api.models.entites.CardList;
+import com.mikaelson.desafiozappts.api.models.entities.Card;
+import com.mikaelson.desafiozappts.api.models.entities.CardList;
 import com.mikaelson.desafiozappts.api.models.repositories.CardListRepository;
 import com.mikaelson.desafiozappts.api.models.repositories.CardRepository;
 import com.mikaelson.desafiozappts.api.services.CardListService;
@@ -19,7 +19,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

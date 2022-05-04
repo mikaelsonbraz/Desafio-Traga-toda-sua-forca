@@ -1,7 +1,7 @@
 package com.mikaelson.desafiozappts.api.services.implementations;
 
-import com.mikaelson.desafiozappts.api.models.entites.Card;
-import com.mikaelson.desafiozappts.api.models.entites.CardList;
+import com.mikaelson.desafiozappts.api.models.entities.Card;
+import com.mikaelson.desafiozappts.api.models.entities.CardList;
 import com.mikaelson.desafiozappts.api.models.repositories.CardListRepository;
 import com.mikaelson.desafiozappts.api.models.repositories.CardRepository;
 import com.mikaelson.desafiozappts.api.services.CardListService;

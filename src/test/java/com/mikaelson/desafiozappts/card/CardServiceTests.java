@@ -1,6 +1,6 @@
 package com.mikaelson.desafiozappts.card;
 
-import com.mikaelson.desafiozappts.api.models.entites.Card;
+import com.mikaelson.desafiozappts.api.models.entities.Card;
 import com.mikaelson.desafiozappts.api.models.repositories.CardRepository;
 import com.mikaelson.desafiozappts.api.services.CardService;
 import com.mikaelson.desafiozappts.api.services.implementations.CardServiceImpl;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;

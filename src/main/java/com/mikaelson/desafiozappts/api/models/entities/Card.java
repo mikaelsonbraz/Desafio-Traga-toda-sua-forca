@@ -1,7 +1,6 @@
-package com.mikaelson.desafiozappts.api.models.entites;
+package com.mikaelson.desafiozappts.api.models.entities;
 
 import com.mikaelson.desafiozappts.api.models.enums.Language;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;

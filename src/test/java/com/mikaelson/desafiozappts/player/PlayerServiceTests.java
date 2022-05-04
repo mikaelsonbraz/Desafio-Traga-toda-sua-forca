@@ -1,6 +1,6 @@
 package com.mikaelson.desafiozappts.player;
 
-import com.mikaelson.desafiozappts.api.models.entites.Player;
+import com.mikaelson.desafiozappts.api.models.entities.Player;
 import com.mikaelson.desafiozappts.api.models.repositories.PlayerRepository;
 import com.mikaelson.desafiozappts.api.services.PlayerService;
 import com.mikaelson.desafiozappts.api.services.implementations.PlayerServiceImpl;

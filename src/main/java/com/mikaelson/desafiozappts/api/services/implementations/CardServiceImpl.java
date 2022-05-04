@@ -1,6 +1,6 @@
 package com.mikaelson.desafiozappts.api.services.implementations;
 
-import com.mikaelson.desafiozappts.api.models.entites.Card;
+import com.mikaelson.desafiozappts.api.models.entities.Card;
 import com.mikaelson.desafiozappts.api.models.repositories.CardRepository;
 import com.mikaelson.desafiozappts.api.services.CardService;
 import org.springframework.stereotype.Service;

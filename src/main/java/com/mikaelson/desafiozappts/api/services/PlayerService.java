@@ -1,6 +1,6 @@
 package com.mikaelson.desafiozappts.api.services;
 
-import com.mikaelson.desafiozappts.api.models.entites.Player;
+import com.mikaelson.desafiozappts.api.models.entities.Player;
 
 import java.util.Optional;
 

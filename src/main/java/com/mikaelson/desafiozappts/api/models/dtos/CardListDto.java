@@ -1,6 +1,5 @@
 package com.mikaelson.desafiozappts.api.models.dtos;
 
-import com.mikaelson.desafiozappts.api.models.entites.Player;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

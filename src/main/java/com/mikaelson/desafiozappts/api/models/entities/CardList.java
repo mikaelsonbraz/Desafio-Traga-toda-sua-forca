@@ -1,4 +1,4 @@
-package com.mikaelson.desafiozappts.api.models.entites;
+package com.mikaelson.desafiozappts.api.models.entities;
 
 import lombok.*;
 

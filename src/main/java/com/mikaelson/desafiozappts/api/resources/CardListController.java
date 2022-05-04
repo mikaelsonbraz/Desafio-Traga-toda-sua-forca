@@ -1,8 +1,8 @@
 package com.mikaelson.desafiozappts.api.resources;
 
 import com.mikaelson.desafiozappts.api.models.dtos.CardListDto;
-import com.mikaelson.desafiozappts.api.models.entites.Card;
-import com.mikaelson.desafiozappts.api.models.entites.CardList;
+import com.mikaelson.desafiozappts.api.models.entities.Card;
+import com.mikaelson.desafiozappts.api.models.entities.CardList;
 import com.mikaelson.desafiozappts.api.services.CardListService;
 import com.mikaelson.desafiozappts.api.services.CardService;
 import io.swagger.annotations.Api;

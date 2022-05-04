@@ -1,7 +1,7 @@
 package com.mikaelson.desafiozappts.api.resources;
 
 import com.mikaelson.desafiozappts.api.models.dtos.PlayerDto;
-import com.mikaelson.desafiozappts.api.models.entites.Player;
+import com.mikaelson.desafiozappts.api.models.entities.Player;
 import com.mikaelson.desafiozappts.api.services.PlayerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

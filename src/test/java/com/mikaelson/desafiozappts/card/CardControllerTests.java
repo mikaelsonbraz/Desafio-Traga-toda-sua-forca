@@ -2,7 +2,7 @@ package com.mikaelson.desafiozappts.card;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelson.desafiozappts.api.models.dtos.CardDto;
-import com.mikaelson.desafiozappts.api.models.entites.Card;
+import com.mikaelson.desafiozappts.api.models.entities.Card;
 import com.mikaelson.desafiozappts.api.resources.CardController;
 import com.mikaelson.desafiozappts.api.services.CardService;
 import org.junit.jupiter.api.DisplayName;
