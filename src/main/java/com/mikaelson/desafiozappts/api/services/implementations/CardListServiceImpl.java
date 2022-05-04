@@ -7,10 +7,7 @@ import com.mikaelson.desafiozappts.api.models.repositories.CardRepository;
 import com.mikaelson.desafiozappts.api.services.CardListService;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CardListServiceImpl implements CardListService {
@@ -32,6 +29,28 @@ public class CardListServiceImpl implements CardListService {
     @Override
     public Optional<CardList> getById(Integer id){
         return repository.findById(id);
+    }
+
+    @Override
+    public List<String> getAllCardsByName(Integer id){
+        List<Card> cards = repository.findById(id).get().getCards();
+        List<String> allCards = new ArrayList<>();
+        for(Card card : cards){
+            allCards.add("\n" + card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice());
+        }
+        Collections.sort(allCards);
+        return allCards;
+    }
+
+    @Override
+    public List<String> getAllCardsByPrice(Integer id){
+        List<Card> cards = repository.findById(id).get().getCards();
+        List<String> allCards = new ArrayList<>();
+        for(Card card : cards){
+            allCards.add("\n" + card.getPrice()  + ", " + card.getCardName() + ", " + card.getEdition());
+        }
+        Collections.sort(allCards);
+        return allCards;
     }
 
     @Override
@@ -66,5 +85,23 @@ public class CardListServiceImpl implements CardListService {
             throw new IllegalArgumentException("CardList Id cannot be null");
         }
         repository.delete(cardList);
+    }
+
+    @Override
+    public CardList removeCard(CardList cardList, Card card){
+        if(Objects.equals(cardList, null) || Objects.equals(cardList.getIdCardList(), null)
+                || Objects.equals(card, null) || Objects.equals(card.getIdCard(), null)){
+            throw new IllegalArgumentException("CardList Id or Card Id cannot be null");
+        }
+        List<Card> cards = new ArrayList<>();
+        for(Card card1 : cardList.getCards()){
+            if(!Objects.equals(card1, card)){
+                cards.add(card1);
+            }
+            card1.setCardList(null);
+            cardRepository.save(card1);
+        }
+        cardList.setCards(cards);
+        return repository.save(cardList);
     }
 }

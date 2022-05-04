@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
@@ -19,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -99,6 +101,44 @@ public class CardListServiceTests {
 
         //verifications
         Assertions.assertThat(foundCardList.isPresent()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Must return all cards of a cardList sorted by name")
+    public void getAllCardsByNameTest(){
+        //scenery
+        CardList cardList = createCardList();
+        Card card = createCard();
+        Card card2 = Card.builder().idCard(2).cardName("Bola de Água").edition("Trezegue").isFoil(true).price(12).build();
+        cardList.setCards(List.of(card, card2));
+        BDDMockito.given(repository.findById(Mockito.anyInt())).willReturn(Optional.of(cardList));
+
+        //execution
+        List<String> foundCards = service.getAllCardsByName(1);
+
+        //verifications
+        Assertions.assertThat(foundCards.size()).isEqualTo(2);
+        Assertions.assertThat(foundCards.contains("\n" + card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice())).isTrue();
+        Assertions.assertThat(foundCards.contains("\n" + card2.getCardName() + ", " + card2.getEdition() + ", " + card2.getPrice())).isTrue();
+    }
+
+    @Test
+    @DisplayName("Must return all cards of a cardlist sorted by price")
+    public void getAllCardsByPriceTest(){
+        //scenery
+        CardList cardList = createCardList();
+        Card card = createCard();
+        Card card2 = Card.builder().idCard(2).cardName("Bola de Água").edition("Trezegue").isFoil(true).price(12).build();
+        cardList.setCards(List.of(card, card2));
+        BDDMockito.given(repository.findById(Mockito.anyInt())).willReturn(Optional.of(cardList));
+
+        //execution
+        List<String> foundCards = service.getAllCardsByPrice(1);
+
+        //verifications
+        Assertions.assertThat(foundCards.size()).isEqualTo(2);
+        Assertions.assertThat(foundCards.contains("\n" + card.getPrice() + ", " + card.getCardName() + ", " + card.getEdition())).isTrue();
+        Assertions.assertThat(foundCards.contains("\n" + card2.getPrice() + ", " + card2.getCardName() + ", " + card2.getEdition())).isTrue();
     }
 
     @Test
@@ -187,5 +227,24 @@ public class CardListServiceTests {
         //verifications
         org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.delete(cardList));
         Mockito.verify(repository, Mockito.never()).delete(cardList);
+    }
+
+    @Test
+    @DisplayName("Must remove a card of the cardList")
+    public void removeCardOfTheCardListTest(){
+        //scenery
+        CardList cardList = createCardList();
+        Card card = createCard();
+        Card card2 = Card.builder().idCard(2).cardName("Bola de Água").edition("Trezegue").isFoil(true).price(12).build();
+        cardList.setCards(List.of(card, card2));
+        Mockito.when(repository.save(Mockito.any(CardList.class))).thenReturn(cardList);
+
+        //execution
+        CardList removedCard = service.removeCard(cardList, card2);
+
+        //verifications
+        Assertions.assertThat(removedCard.getCards().size()).isEqualTo(1);
+        Assertions.assertThat(removedCard.getCards().contains(card)).isTrue();
+        Assertions.assertThat(removedCard.getCards().contains(card2)).isFalse();
     }
 }

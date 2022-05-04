@@ -25,6 +25,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -122,6 +124,80 @@ public class CardListControllerTests {
     }
 
     @Test
+    @DisplayName("Must get all cards of a cardList sorted by name")
+    public void getAllCardsByName() throws Exception{
+        //scenery
+        CardList cardList = createCardList();
+        Card card = createCard();
+        Card card2 = Card.builder().idCard(2).cardName("Bola de Gelo").isFoil(true).edition("123").price(12).build();
+        cardList.setCards(List.of(card, card2));
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
+        BDDMockito.given(service.getAllCardsByName(Mockito.anyInt())).willReturn(List.of("\n" + card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice(),
+                "\n" + card2.getCardName() + ", " + card2.getEdition() + ", " + card2.getPrice()));
+
+        //execution
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(CARDLIST_API.concat("sortby=name/1"))
+                .accept(MediaType.APPLICATION_JSON);
+
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @DisplayName("Must throw ResponseStatusException when not find a cardList to show all cards")
+    public void getInvalidAllCardsByName() throws Exception{
+        //scenery
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
+
+        //execution
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(CARDLIST_API.concat("sortby=name/1"))
+                .accept(MediaType.APPLICATION_JSON);
+
+        //verifications
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Must get all cards of a cardList sorted by price")
+    public void getAllCardsByPrice() throws Exception{
+        //scenery
+        CardList cardList = createCardList();
+        Card card = createCard();
+        Card card2 = Card.builder().idCard(2).cardName("Bola de Gelo").isFoil(true).edition("123").price(12).build();
+        cardList.setCards(List.of(card, card2));
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
+        BDDMockito.given(service.getAllCardsByName(Mockito.anyInt())).willReturn(List.of("\n" + card.getPrice() + ", " + card.getCardName() + ", " + card.getEdition(),
+                "\n" + card2.getPrice() + ", " + card2.getCardName() + ", " + card2.getEdition()));
+
+        //execution
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(CARDLIST_API.concat("sortby=price/1"))
+                .accept(MediaType.APPLICATION_JSON);
+
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    @DisplayName("Must throw ResponseStatusException when not find a cardList to show all cards")
+    public void getInvalidAllCardsByPrice() throws Exception{
+        //scenery
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
+
+        //execution
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(CARDLIST_API.concat("sortby=price/1"))
+                .accept(MediaType.APPLICATION_JSON);
+
+        //verifications
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
     @DisplayName("Must update a cardList by id")
     public void updateCardListTest() throws Exception {
         //scenery
@@ -169,13 +245,13 @@ public class CardListControllerTests {
         //scenery
         CardList cardList = createCardList();
         Card card = createCard();
-        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList)).willReturn(Optional.of(cardList));
-        BDDMockito.given(cardService.getById(Mockito.anyInt())).willReturn(Optional.of(card)).willReturn(Optional.of(card));
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
+        BDDMockito.given(cardService.getById(Mockito.anyInt())).willReturn(Optional.of(card));
         BDDMockito.given(service.placeCard(Mockito.any(CardList.class), Mockito.any(Card.class))).willReturn(cardList);
 
         //execution
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .patch(CARDLIST_API.concat("idCardList=1/idCard=1"))
+                .patch(CARDLIST_API.concat("add/idCardList=1/idCard=1"))
                 .accept(MediaType.APPLICATION_JSON);
 
         //verifications
@@ -194,14 +270,13 @@ public class CardListControllerTests {
 
         //execution
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .patch(CARDLIST_API.concat("idCardList=1/idCard=1"))
+                .patch(CARDLIST_API.concat("add/idCardList=1/idCard=1"))
                 .accept(MediaType.APPLICATION_JSON);
 
         //verifications
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
-
 
     @Test
     @DisplayName("Must delete a cardList")
@@ -232,5 +307,25 @@ public class CardListControllerTests {
         //verifications
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Must remove a card from a cardList")
+    public void removeCardFromCardListTest() throws Exception{
+        //scenery
+        CardList cardList = createCardList();
+        Card card = createCard();
+        cardList.setCards(List.of(card));
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
+        BDDMockito.given(cardService.getById(Mockito.anyInt())).willReturn(Optional.of(card));
+        BDDMockito.given(service.removeCard(Mockito.any(CardList.class), Mockito.any(Card.class))).willReturn(cardList);
+
+        //execution
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .patch(CARDLIST_API.concat("remove/idCardList=1/idCard=1"));
+
+        //verifications
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
