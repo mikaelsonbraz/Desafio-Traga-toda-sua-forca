@@ -5,6 +5,10 @@ codecov:
   strict_yaml_branch: "yaml-config"
   max_report_age: 24
   disable_default_path_fixes: yes
+  fixes:
+    - "before/::after/"  # move path   e.g., "before/path" => "after/path"
+    - "::after/"         # move root   e.g., "path/" => "after/path/"
+    - "before/::"        # reduce root e.g., "before/path/" => "path/"
   require_ci_to_pass: yes
   notify:
     after_n_builds: 2
