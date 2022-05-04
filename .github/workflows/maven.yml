@@ -27,3 +27,6 @@ jobs:
 
       - name: Codecov
         uses: codecov/codecov-action@v3.0.0
+
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
