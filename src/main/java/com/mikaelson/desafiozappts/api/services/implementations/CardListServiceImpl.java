@@ -36,7 +36,7 @@ public class CardListServiceImpl implements CardListService {
         List<Card> cards = repository.findById(id).get().getCards();
         List<String> allCards = new ArrayList<>();
         for(Card card : cards){
-            allCards.add("\n" + card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice());
+            allCards.add(card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice());
         }
         Collections.sort(allCards);
         return allCards;
@@ -47,7 +47,7 @@ public class CardListServiceImpl implements CardListService {
         List<Card> cards = repository.findById(id).get().getCards();
         List<String> allCards = new ArrayList<>();
         for(Card card : cards){
-            allCards.add("\n" + card.getPrice()  + ", " + card.getCardName() + ", " + card.getEdition());
+            allCards.add(card.getPrice()  + ", " + card.getCardName() + ", " + card.getEdition());
         }
         Collections.sort(allCards);
         return allCards;

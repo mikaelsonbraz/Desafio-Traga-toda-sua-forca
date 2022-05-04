@@ -37,7 +37,7 @@ public class Card {
     @Column(nullable = false)
     private double price;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Integer amountSameCard;
 
     @ManyToOne

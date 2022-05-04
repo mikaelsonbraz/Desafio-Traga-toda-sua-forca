@@ -24,9 +24,6 @@ public class CardList {
     @Column(nullable = true)
     private String listName;
 
-    @Column(nullable = false)
-    private Integer cardsAmount;
-
     @OneToMany(mappedBy = "cardList")
     private List<Card> cards = new ArrayList<Card>();
 
@@ -39,7 +36,6 @@ public class CardList {
         return "CardList{" +
                 "idCardList=" + idCardList +
                 ", listName='" + listName + '\'' +
-                ", cardsAmount=" + cardsAmount +
                 ", listCardsOwner=" + listCardsOwner +
                 '}';
     }
