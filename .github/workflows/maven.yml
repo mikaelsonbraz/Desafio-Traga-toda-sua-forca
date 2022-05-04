@@ -29,4 +29,4 @@ jobs:
       uses: codecov/codecov-action@v3.1.0
       with:
         token: ${{secrets.CODECOV_TOKEN}}
-        files: /home/runner/work/Desafio-Traga-toda-sua-forca/Desafio-Traga-toda-sua-forca/target/site/jacoco/jacoco.xml
+        files: ./target/site/jacoco/jacoco.xml
