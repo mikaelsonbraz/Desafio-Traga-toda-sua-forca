@@ -68,7 +68,7 @@ public class CardListServiceImpl implements CardListService {
             throw new IllegalArgumentException("CardList Id or Card Id cannot be null");
         }
         if(Objects.equals(cardList.getCards(), null)){
-            cardList.setCards(List.of(card));
+            cardList.setCards(Arrays.asList(card));
             card.setCardList(cardList);
             cardRepository.save(card);
             return repository.save(cardList);

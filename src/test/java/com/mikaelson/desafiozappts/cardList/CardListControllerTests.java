@@ -24,6 +24,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,9 +130,9 @@ public class CardListControllerTests {
         CardList cardList = createCardList();
         Card card = createCard();
         Card card2 = Card.builder().idCard(2).cardName("Bola de Gelo").isFoil(true).edition("123").price(12).build();
-        cardList.setCards(List.of(card, card2));
+        cardList.setCards(Arrays.asList(card, card2));
         BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
-        BDDMockito.given(service.getAllCardsByName(Mockito.anyInt())).willReturn(List.of("\n" + card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice(),
+        BDDMockito.given(service.getAllCardsByName(Mockito.anyInt())).willReturn(Arrays.asList("\n" + card.getCardName() + ", " + card.getEdition() + ", " + card.getPrice(),
                 "\n" + card2.getCardName() + ", " + card2.getEdition() + ", " + card2.getPrice()));
 
         //execution
@@ -165,9 +167,9 @@ public class CardListControllerTests {
         CardList cardList = createCardList();
         Card card = createCard();
         Card card2 = Card.builder().idCard(2).cardName("Bola de Gelo").isFoil(true).edition("123").price(12).build();
-        cardList.setCards(List.of(card, card2));
+        cardList.setCards(Arrays.asList(card, card2));
         BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
-        BDDMockito.given(service.getAllCardsByName(Mockito.anyInt())).willReturn(List.of("\n" + card.getPrice() + ", " + card.getCardName() + ", " + card.getEdition(),
+        BDDMockito.given(service.getAllCardsByName(Mockito.anyInt())).willReturn(Arrays.asList("\n" + card.getPrice() + ", " + card.getCardName() + ", " + card.getEdition(),
                 "\n" + card2.getPrice() + ", " + card2.getCardName() + ", " + card2.getEdition()));
 
         //execution
@@ -313,7 +315,7 @@ public class CardListControllerTests {
         //scenery
         CardList cardList = createCardList();
         Card card = createCard();
-        cardList.setCards(List.of(card));
+        cardList.setCards(Collections.singletonList(card));
         BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(cardList));
         BDDMockito.given(cardService.getById(Mockito.anyInt())).willReturn(Optional.of(card));
         BDDMockito.given(service.removeCard(Mockito.any(CardList.class), Mockito.any(Card.class))).willReturn(cardList);

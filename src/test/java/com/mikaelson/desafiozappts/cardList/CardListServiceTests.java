@@ -19,6 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,7 +110,7 @@ public class CardListServiceTests {
         CardList cardList = createCardList();
         Card card = createCard();
         Card card2 = Card.builder().idCard(2).cardName("Bola de Água").edition("Trezegue").isFoil(true).price(12).build();
-        cardList.setCards(List.of(card, card2));
+        cardList.setCards(Arrays.asList(card, card2));
         BDDMockito.given(repository.findById(Mockito.anyInt())).willReturn(Optional.of(cardList));
 
         //execution
@@ -128,7 +129,7 @@ public class CardListServiceTests {
         CardList cardList = createCardList();
         Card card = createCard();
         Card card2 = Card.builder().idCard(2).cardName("Bola de Água").edition("Trezegue").isFoil(true).price(12).build();
-        cardList.setCards(List.of(card, card2));
+        cardList.setCards(Arrays.asList(card, card2));
         BDDMockito.given(repository.findById(Mockito.anyInt())).willReturn(Optional.of(cardList));
 
         //execution
@@ -235,7 +236,7 @@ public class CardListServiceTests {
         CardList cardList = createCardList();
         Card card = createCard();
         Card card2 = Card.builder().idCard(2).cardName("Bola de Água").edition("Trezegue").isFoil(true).price(12).build();
-        cardList.setCards(List.of(card, card2));
+        cardList.setCards(Arrays.asList(card, card2));
         Mockito.when(repository.save(Mockito.any(CardList.class))).thenReturn(cardList);
 
         //execution
