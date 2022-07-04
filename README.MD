@@ -7,6 +7,7 @@ API Restful com Java 1.8, Spring Boot 2.6.4, Maven 3.1.1, Swagger 3.0.0, Jacoco 
 ![example workflow](https://github.com/mikaelsonbraz/Desafio-Traga-toda-sua-forca/actions/workflows/maven.yml/badge.svg)
 [![codecov](https://codecov.io/gh/mikaelsonbraz/Desafio-Traga-toda-sua-forca/branch/master/graph/badge.svg?token=SX972Z9NPK)](https://codecov.io/gh/mikaelsonbraz/Desafio-Traga-toda-sua-forca)
 
+
 _____
 
 <h2>GETTING STARTED</h2>
