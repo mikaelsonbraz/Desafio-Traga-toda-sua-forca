@@ -69,4 +69,5 @@ _____
 
 <h2>MODELO ENTIDADE-RELACIONAMENTO DO PROJETO
 
+
 ![mer](src/main/resources/static/mer.png)
